@@ -1,0 +1,44 @@
+from django.urls import re_path, include
+from .views import *
+from . import views
+
+"""
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'tutorials', TutorialViewSet)
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+"""
+
+"""
+# function-based views
+
+urlpatterns = [
+    re_path(r'^api/tutorials$', tutorial_list, name='tutorial_list'),
+    re_path(r'^api/tutorials/(?P<pk>[0-9]+)$', tutorial_detail, name='tutorial_detail'),  # pk: django-specific, 'primary key'
+    re_path(r'^api/tutorials/published$', tutorial_list_published, name='tutorial_list_published'),
+]
+"""
+
+"""
+# function-based views + generics
+
+urlpatterns = [
+    re_path(r'^api/tutorials$', views.TutorialListViewGenerics.as_view()),
+    re_path(r'^api/tutorials/(?P<pk>[0-9]+)$', views.TutorialDetailViewGenerics.as_view()),
+    re_path(r'^api/tutorials/published$', views.TutorialListPublishedViewGenerics.as_view()),
+]
+"""
+
+# function-based views + generics + mixins
+
+urlpatterns = [
+    re_path(r'^api/tutorials$', views.TutorialListViewGenericsMixins.as_view(), name='tutorial_list'),
+    re_path(r'^api/tutorials/(?P<id>[0-9]+)$', views.TutorialDetailViewGenericsMixins.as_view(),
+            name='tutorial_detail'),
+    re_path(r'^api/tutorials/published$', views.TutorialListPublishedViewGenericsMixins.as_view(),
+            name='tutorial_list_published'),
+]
