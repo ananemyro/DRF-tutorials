@@ -9,7 +9,7 @@ class UserLoginTestCase(base_test.NewUserTestCase):
 
     def test_user_login(self):
         client = APIClient()
-        result = client.post('/api/login/', {"username": self.username, "password": self.password}, format="json")
+        result = client.post('/login/', {"email": self.email, "password": self.password}, format="json")
         self.assertEquals(result.status_code, 200)
         self.assertTrue("access" in result.json())
         self.assertTrue("refresh" in result.json())

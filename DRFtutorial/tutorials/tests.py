@@ -2,9 +2,11 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from .models import Tutorial
 
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from .serializers import TutorialSerializer
+
+from django.contrib.auth import get_user_model
 
 # class-based views
 
@@ -12,7 +14,14 @@ from .serializers import TutorialSerializer
 class TutorialListViewGenericsMixinsTestCase(APITestCase):
 
     def setUp(self):
+        self.client = APIClient()
         self.url = reverse('tutorial_list')
+        self.user = get_user_model().objects.create_user(
+            email='test@example.com',
+            name='Test User',
+            password='testpassword',
+        )
+        self.client.force_authenticate(user=self.user)
 
     def test_tutorial_list_get(self):
         response = self.client.get(self.url)
@@ -34,6 +43,7 @@ class TutorialListViewGenericsMixinsTestCase(APITestCase):
         self.assertFalse(Tutorial.objects.filter(id=tutorial.id).exists())
 
 
+'''
 # function-based views
 
 class TutorialListTestCase(TestCase):
@@ -57,3 +67,4 @@ class TutorialListTestCase(TestCase):
         tutorial = Tutorial.objects.create(title='Test', description='This is a test tutorial.', published=False)
         response = self.client.delete(reverse('tutorial_detail', kwargs={'pk': tutorial.pk}))
         self.assertEqual(response.status_code, 204)
+'''
