@@ -21,3 +21,77 @@ INFO 2023-05-17 18:04:58,078 basehttp 72 140088243435264 "GET /swagger/ HTTP/1.1
 INFO 2023-05-17 18:04:58,237 basehttp 72 140088243435264 "GET /swagger/?format=openapi HTTP/1.1" 200 7983
 INFO 2023-05-17 18:04:58,237 basehttp 72 140088235042560 "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 304 0
 INFO 2023-05-17 18:05:06,908 basehttp 72 140088243435264 "GET /admin/ HTTP/1.1" 200 5153
+WARNING 2023-05-17 18:29:29,839 log 72 140088243435264 Unauthorized: /api/tutorials/3
+WARNING 2023-05-17 18:29:29,841 basehttp 72 140088243435264 "GET /api/tutorials/3 HTTP/1.1" 401 183
+WARNING 2023-05-17 18:30:12,187 log 72 140088243435264 Method Not Allowed: /login/
+WARNING 2023-05-17 18:30:12,189 basehttp 72 140088243435264 "GET /login/ HTTP/1.1" 405 40
+WARNING 2023-05-17 18:30:21,787 log 72 140088243435264 Bad Request: /login/
+WARNING 2023-05-17 18:30:21,788 basehttp 72 140088243435264 "POST /login/ HTTP/1.1" 400 76
+INFO 2023-05-17 18:30:28,767 basehttp 72 140088243435264 "POST /login/ HTTP/1.1" 200 483
+INFO 2023-05-17 18:31:12,793 basehttp 72 140088243435264 "GET /api/tutorials HTTP/1.1" 200 279
+INFO 2023-05-17 18:36:58,780 autoreload 72 140088397805376 /app/tutorials/views.py changed, reloading.
+INFO 2023-05-17 18:36:59,520 autoreload 88 140298820167488 Watching for file changes with StatReloader
+INFO 2023-05-17 18:41:33,087 autoreload 88 140298820167488 /app/tutorials/views.py changed, reloading.
+INFO 2023-05-17 18:41:34,090 autoreload 94 139733442045760 Watching for file changes with StatReloader
+INFO 2023-05-17 18:45:13,040 autoreload 94 139733442045760 /app/tutorials/views.py changed, reloading.
+INFO 2023-05-17 18:45:14,327 autoreload 100 139861026907968 Watching for file changes with StatReloader
+INFO 2023-05-17 18:49:35,596 autoreload 100 139861026907968 /app/DRFtutorial/settings.py changed, reloading.
+INFO 2023-05-17 18:49:36,554 autoreload 106 140032716404544 Watching for file changes with StatReloader
+INFO 2023-05-17 18:51:54,643 autoreload 106 140032716404544 /app/DRFtutorial/settings.py changed, reloading.
+INFO 2023-05-17 18:51:55,642 autoreload 112 139685913491264 Watching for file changes with StatReloader
+WARNING 2023-05-17 18:53:07,390 log 112 139685615625984 Unauthorized: /api/tutorials
+WARNING 2023-05-17 18:53:07,392 basehttp 112 139685615625984 "GET /api/tutorials HTTP/1.1" 401 183
+ERROR 2023-05-17 18:53:22,467 log 112 139685615625984 Internal Server Error: /profile
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 56, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.8/site-packages/django/utils/deprecation.py", line 135, in __call__
+    response = self.process_request(request)
+  File "/usr/local/lib/python3.8/site-packages/django/middleware/common.py", line 54, in process_request
+    path = self.get_full_path_with_slash(request)
+  File "/usr/local/lib/python3.8/site-packages/django/middleware/common.py", line 88, in get_full_path_with_slash
+    raise RuntimeError(
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to localhost:8000/profile/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+ERROR 2023-05-17 18:53:22,472 basehttp 112 139685615625984 "POST /profile HTTP/1.1" 500 64561
+WARNING 2023-05-17 18:53:26,294 log 112 139685624018688 Unauthorized: /profile/
+WARNING 2023-05-17 18:53:26,295 basehttp 112 139685624018688 "POST /profile/ HTTP/1.1" 401 183
+WARNING 2023-05-17 18:53:42,261 log 112 139685624018688 Unauthorized: /profile/
+WARNING 2023-05-17 18:53:42,264 basehttp 112 139685624018688 "POST /profile/ HTTP/1.1" 401 183
+INFO 2023-05-17 18:53:53,141 basehttp 112 139685624018688 "POST /login/ HTTP/1.1" 200 483
+INFO 2023-05-17 18:54:21,759 views 112 139685624018688 Tutorial list was received.
+INFO 2023-05-17 18:54:21,769 basehttp 112 139685624018688 "GET /api/tutorials HTTP/1.1" 200 279
+INFO 2023-05-17 18:58:22,688 autoreload 112 139685913491264 /app/DRFtutorial/settings.py changed, reloading.
+INFO 2023-05-17 18:58:23,370 autoreload 125 139809458956096 Watching for file changes with StatReloader
+INFO 2023-05-17 18:58:32,197 views 125 139809161733888 Tutorial list was received.
+INFO 2023-05-17 18:58:32,206 basehttp 125 139809161733888 "GET /api/tutorials HTTP/1.1" 200 279
+INFO 2023-05-17 19:03:05,447 autoreload 125 139809458956096 /app/DRFtutorial/settings.py changed, reloading.
+INFO 2023-05-17 19:03:06,387 autoreload 133 140017829074752 Watching for file changes with StatReloader
+INFO 2023-05-17 19:08:02,631 autoreload 133 140017829074752 /app/DRFtutorial/settings.py changed, reloading.
+INFO 2023-05-17 19:08:03,672 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 139 140643512842048 Watching for file changes with StatReloader
+WARNING 2023-05-17 19:08:32,531 /usr/local/lib/python3.8/site-packages/django/utils/log.py 139 140643417204480 Unauthorized: /api/tutorials
+WARNING 2023-05-17 19:08:32,532 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 139 140643417204480 "GET /api/tutorials HTTP/1.1" 401 183
+WARNING 2023-05-17 19:08:57,876 /usr/local/lib/python3.8/site-packages/django/utils/log.py 139 140643417204480 Method Not Allowed: /login/
+WARNING 2023-05-17 19:08:57,877 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 139 140643417204480 "GET /login/ HTTP/1.1" 405 40
+INFO 2023-05-17 19:09:03,546 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 139 140643417204480 "POST /login/ HTTP/1.1" 200 483
+INFO 2023-05-17 19:09:23,476 /app/tutorials/views.py 139 140643417204480 Tutorial list was received.
+INFO 2023-05-17 19:09:23,485 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 139 140643417204480 "GET /api/tutorials HTTP/1.1" 200 279
+INFO 2023-05-17 19:11:47,047 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 139 140643512842048 /app/DRFtutorial/settings.py changed, reloading.
+INFO 2023-05-17 19:11:47,708 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 150 140461517920064 Watching for file changes with StatReloader
+INFO 2023-05-17 19:24:05,678 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 150 140461517920064 /app/DRFtutorial/settings.py changed, reloading.
+INFO 2023-05-17 19:27:04,949 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 159 139829471622976 Watching for file changes with StatReloader
+INFO 2023-05-17 19:31:39,644 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 159 139829471622976 /app/DRFtutorial/settings.py changed, reloading.
+INFO 2023-05-17 19:31:40,697 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 165 140171997095744 Watching for file changes with StatReloader
+INFO 2023-05-17 19:32:43,637 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 165 140171997095744 /app/DRFtutorial/settings.py changed, reloading.
+INFO 2023-05-17 19:32:44,628 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 171 140070581581632 Watching for file changes with StatReloader
+WARNING 2023-05-17 19:33:14,134 /usr/local/lib/python3.8/site-packages/django/utils/log.py 171 140070283634432 Unauthorized: /api/tutorials
+WARNING 2023-05-17 19:33:14,136 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 171 140070283634432 "GET /api/tutorials HTTP/1.1" 401 183
+INFO 2023-05-17 19:33:29,374 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 171 140070283634432 "POST /login/ HTTP/1.1" 200 483
+INFO 2023-05-17 19:33:51,240 /app/tutorials/views.py 171 140070283634432 Tutorial list was received.
+INFO 2023-05-17 19:33:51,250 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 171 140070283634432 "GET /api/tutorials HTTP/1.1" 200 279
+INFO 2023-05-17 19:40:44,279 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 171 140070512801536 "GET /admin/ HTTP/1.1" 200 5153
+INFO 2023-05-17 19:40:49,688 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 171 140070512801536 "GET /swagger/ HTTP/1.1" 200 1580
+INFO 2023-05-17 19:40:49,868 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 171 140070512801536 "GET /swagger/?format=openapi HTTP/1.1" 200 7983
+INFO 2023-05-17 19:43:43,079 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 171 140070581581632 /app/DRFtutorial/settings.py changed, reloading.
+INFO 2023-05-17 19:44:04,523 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 190 140098459461440 Watching for file changes with StatReloader
+INFO 2023-05-17 19:45:39,267 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 190 140098459461440 /app/DRFtutorial/settings.py changed, reloading.
+INFO 2023-05-17 19:46:07,937 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 199 140085473519424 Watching for file changes with StatReloader
