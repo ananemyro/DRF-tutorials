@@ -5,6 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from .serializers import TutorialSerializer
 
+import logging
+logger = logging.getLogger(__name__)
 
 # 1 : Function-based view
 @api_view(['GET', 'POST', 'DELETE'])
@@ -54,12 +56,15 @@ class TutorialListViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMi
     serializer_class = TutorialSerializer
 
     def get(self, request):
+        logger.info("Tutorial list was received.")
         return self.list(request)
 
     def post(self, request):
+        logger.info("Tutorial was posted.")
         return self.create(request)
 
     def delete(self, request):
+        logger.info("Tutorial was deleted.")
         return self.delete(request)
 
 

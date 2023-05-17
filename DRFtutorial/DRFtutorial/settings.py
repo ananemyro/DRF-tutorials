@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from datetime import timedelta
 from pathlib import Path
+from django.utils.log import DEFAULT_LOGGING
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,13 +22,14 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "verbose": {
-            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "format": "{levelname} {asctime} {pathname} {process:d} {thread:d} {message}",
             "style": "{",
         },
         "simple": {
             "format": "{levelname} {message}",
             "style": "{",
         },
+        "django.server": DEFAULT_LOGGING["formatters"]["django.server"],
     },
     "handlers": {
         "file": {
@@ -36,84 +38,26 @@ LOGGING = {
             "filename": "DRFtutorial/server.log",
             "formatter": "verbose",
         },
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
     },
     "loggers": {
+        "tutorials.views": {
+            "handlers": ["file", "console"],
+            "level": "INFO",
+            "propagate": False,
+        },
         "django": {
-            "handlers": ["file"],
+            "handlers": ["file", "console"],
             "level": "INFO",
             "propagate": True,
         },
     },
 }
 
-'''
-import logging.config
-from django.utils.log import DEFAULT_LOGGING
-
-logger = logging.getLogger(__name__)
-
-# Disable Django's logging setup
-LOGGING_CONFIG = None
-
-console_handler_name = "console"
-file_handler_name = "server_log"
-handlers = [console_handler_name, file_handler_name]
-
-logging.config.dictConfig(
-    {
-        "version": 1,
-        "disable_existing_loggers": False,
-        "filters": {
-            "tenant_context": {"()": "django_tenants.log.TenantContextFilter"},
-        },
-        "formatters": {
-            "normal": {
-                "format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
-            },
-            "tenant_context": {
-                "format": "[%(schema_name)s] %(asctime)s %(name)-12s %(levelname)-8s %(message)s",
-            },
-            "django.server": DEFAULT_LOGGING["formatters"]["django.server"],  # NOSONAR
-        },
-        "tenant_context": {"()": "tenant_schemas.log.TenantContextFilter"},
-        "handlers": {
-            console_handler_name: {
-                "class": "logging.StreamHandler",
-                "filters": ["tenant_context"],
-                "formatter": "tenant_context",
-            },
-            file_handler_name: {
-                "class": "logging.FileHandler",
-                "filename": os.path.join(BASE_DIR, "server.log"),
-                "filters": ["tenant_context"],
-                "formatter": "tenant_context",
-            },
-            # Sentry placeholder
-            "django.server.console": {
-                "class": "logging.StreamHandler",
-                "formatter": "django.server",
-            },
-        },
-        "loggers": {
-            # Root logger, no parent (no propagate)
-            "": {
-                "handlers": handlers,
-                "level": "INFO",
-            },
-            "portal": {
-                "handlers": handlers,
-                "level": "INFO",
-                "propagate": False,
-            },
-            "django.server": {
-                "handlers": ["django.server.console", file_handler_name],
-                "level": "INFO",
-                "propagate": False,
-            },
-        },
-    }
-)
-'''
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
