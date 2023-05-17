@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "users",
     "tutorials",
-    # "drf_yasg",
+    "drf_yasg",
     # "drf_spectacular",
     "django_filters",
 ]
@@ -206,7 +206,12 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
+SWAGGER_SETTINGS = {
+    "USE_SESSION_AUTH": False,
+}
 
+'''
 SPECTACULAR_SETTINGS = {
     'TITLE': 'DRF Tutorial',
 }
+'''
