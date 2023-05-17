@@ -1,0 +1,23 @@
+Watching for file changes with StatReloader
+Unauthorized: /
+"GET / HTTP/1.1" 401 58
+Unauthorized: /
+"GET / HTTP/1.1" 401 58
+"GET /admin/ HTTP/1.1" 200 5153
+"GET /swagger/ HTTP/1.1" 200 1580
+"GET /static/drf-yasg/style.css HTTP/1.1" 304 0
+"GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 304 0
+"GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 304 0
+"GET /static/drf-yasg/insQ.min.js HTTP/1.1" 304 0
+"GET /static/drf-yasg/immutable.min.js HTTP/1.1" 304 0
+"GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 304 0
+"GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 200 1086481
+"GET /swagger/?format=openapi HTTP/1.1" 200 7983
+/app/DRFtutorial/settings.py changed, reloading.
+Watching for file changes with StatReloader
+/app/DRFtutorial/settings.py changed, reloading.
+INFO 2023-05-17 18:04:49,353 autoreload 72 140088397805376 Watching for file changes with StatReloader
+INFO 2023-05-17 18:04:58,078 basehttp 72 140088243435264 "GET /swagger/ HTTP/1.1" 200 1580
+INFO 2023-05-17 18:04:58,237 basehttp 72 140088243435264 "GET /swagger/?format=openapi HTTP/1.1" 200 7983
+INFO 2023-05-17 18:04:58,237 basehttp 72 140088235042560 "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 304 0
+INFO 2023-05-17 18:05:06,908 basehttp 72 140088243435264 "GET /admin/ HTTP/1.1" 200 5153
