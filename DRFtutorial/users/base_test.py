@@ -14,5 +14,5 @@ class NewUserTestCase(TestCase):
                                                          name=self.username,
                                                          password=self.password)
 
-        def tearDown(self) -> None:
-            self.user.delete()
+    def tearDown(self) -> None:
+        self.user.delete()

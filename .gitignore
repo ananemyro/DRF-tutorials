@@ -1,3 +1,4 @@
 DRFtutorial/data
 DRFtutorial/python
-venv
+*.pyc
+*.log
