@@ -8,6 +8,7 @@ from .serializers import TutorialSerializer
 import logging
 logger = logging.getLogger(__name__)
 
+
 # 1 : Function-based view
 @api_view(['GET', 'POST', 'DELETE'])
 def tutorial_list(request):
@@ -45,13 +46,12 @@ class TutorialListView(View):
         return JsonResponse(tutorials_serializer.data, safe=False)
 
 
-# 1.2 : Class-based views using GENERICS, MIXINS from rest_framework
+# 1.2 : Class-based views using GENERICS, MIXINS from rest_framework (IN USE)
 from rest_framework import generics, mixins
 from rest_framework.permissions import IsAuthenticated
 
 
 class TutorialListViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
-    # permission_classes = (IsAuthenticated,)
     queryset = Tutorial.objects.all()
     serializer_class = TutorialSerializer
 
@@ -68,12 +68,11 @@ class TutorialListViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMi
         return self.delete(request)
 
 
-# viewset
+# 1.3 : Viewsets
 from rest_framework import viewsets
 
 
 class TutorialViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin):
-    permission_classes = (IsAuthenticated,)
     queryset = Tutorial.objects.all()
     serializer_class = TutorialSerializer
 
@@ -87,7 +86,7 @@ class TutorialViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Cre
         return self.destroy(request)
 
 
-# 1.3 : Class-based views using GENERICS from rest_framework
+# 1.4 : Class-based views using GENERICS from rest_framework
 class TutorialListViewGenerics(generics.ListCreateAPIView):
     queryset = Tutorial.objects.all()
     serializer_class = TutorialSerializer
@@ -117,10 +116,9 @@ def tutorial_detail(request, pk):
         return JsonResponse({'message': 'Tutorial was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
 
-# 2.1 : Generics + mixins
+# 2.1 : Generics + mixins (IN USE)
 class TutorialDetailViewGenericsMixins(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
                                        mixins.DestroyModelMixin):
-    # permission_classes = (IsAuthenticated,)
     queryset = Tutorial.objects.all()
     serializer_class = TutorialSerializer
     # default to pk
@@ -129,13 +127,16 @@ class TutorialDetailViewGenericsMixins(generics.GenericAPIView, mixins.RetrieveM
 
     def get(self, request, id=None):
         if id:
+            logger.info("Requested tutorial item was received.")
             return self.retrieve(request)
 
     def put(self, request, *args, **kwargs):
+        logger.info("Requested tutorial item was replaced.")
         return self.update(request)
 
     def delete(self, request, id=None):
         if id:
+            logger.info("Requested tutorial item was deleted.")
             return self.destroy(request)
 
 
@@ -188,13 +189,13 @@ def tutorial_list_published(request):
         return JsonResponse(tutorials_serializer.data, safe=False)
 
 
-# 3.1 : Generics + mixins
+# 3.1 : Generics + mixins (IN USE)
 class TutorialListPublishedViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMixin):
-    # permission_classes = (IsAuthenticated,)
     queryset = Tutorial.objects.filter(published=True)
     serializer_class = TutorialSerializer
 
     def get(self, request):
+        logger.info("Published tutorial list was received.")
         return self.list(request)
 
 

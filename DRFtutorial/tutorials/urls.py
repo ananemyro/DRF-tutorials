@@ -2,6 +2,7 @@ from django.urls import re_path, include
 from .views import *
 from . import views
 
+
 """
 from rest_framework import routers
 
@@ -24,7 +25,7 @@ urlpatterns = [
 """
 
 """
-# function-based views + generics
+# class-based views + generics
 
 urlpatterns = [
     re_path(r'^api/tutorials$', views.TutorialListViewGenerics.as_view()),
@@ -33,7 +34,7 @@ urlpatterns = [
 ]
 """
 
-# function-based views + generics + mixins
+# class-based views + generics + mixins (CURRENTLY IN USE)
 
 urlpatterns = [
     re_path(r'^api/tutorials$', views.TutorialListViewGenericsMixins.as_view(), name='tutorial_list'),

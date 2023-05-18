@@ -1,12 +1,11 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from .models import Tutorial
-
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from .serializers import TutorialSerializer
-
 from django.contrib.auth import get_user_model
+
 
 # class-based views
 
@@ -45,6 +44,7 @@ class TutorialListViewGenericsMixinsTestCase(APITestCase):
 
 '''
 # function-based views
+
 
 class TutorialListTestCase(TestCase):
     def setUp(self):

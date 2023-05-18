@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+
 import os
 from datetime import timedelta
 from pathlib import Path
-from django.utils.log import DEFAULT_LOGGING
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +30,6 @@ LOGGING = {
             "format": "{levelname} {message}",
             "style": "{",
         },
-        "django.server": DEFAULT_LOGGING["formatters"]["django.server"],
     },
     "handlers": {
         "file": {
@@ -85,7 +85,6 @@ INSTALLED_APPS = [
     "users",
     "tutorials",
     "drf_yasg",
-    # "drf_spectacular",
     "django_filters",
 ]
 
@@ -186,15 +185,7 @@ AUTH_USER_MODEL = "users.UserProfile"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-'''
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-}
-'''
-
-REST_FRAMEWORK = {
-    # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5,
     'DEFAULT_PERMISSION_CLASSES': (
@@ -213,9 +204,6 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
@@ -252,9 +240,3 @@ SIMPLE_JWT = {
 SWAGGER_SETTINGS = {
     "USE_SESSION_AUTH": False,
 }
-
-'''
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'DRF Tutorial',
-}
-'''
