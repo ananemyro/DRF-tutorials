@@ -113,3 +113,28 @@ INFO 2023-05-18 13:55:09,423 /usr/local/lib/python3.8/site-packages/django/utils
 INFO 2023-05-18 13:55:10,884 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 247 140632855189312 Watching for file changes with StatReloader
 INFO 2023-05-18 14:01:14,002 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 247 140632855189312 /app/users/urls.py changed, reloading.
 INFO 2023-05-18 14:01:15,210 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 253 139829310256960 Watching for file changes with StatReloader
+INFO 2023-05-18 16:04:36,510 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 8 139632437356352 Watching for file changes with StatReloader
+INFO 2023-05-18 16:06:44,631 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 8 139642232596288 Watching for file changes with StatReloader
+INFO 2023-05-18 16:09:56,714 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 8 140165222221632 Watching for file changes with StatReloader
+INFO 2023-05-18 16:13:30,412 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 8 140551496394560 Watching for file changes with StatReloader
+INFO 2023-05-18 16:14:11,923 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 8 139641922107200 Watching for file changes with StatReloader
+INFO 2023-05-18 16:14:53,788 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 139641767753472 "GET /admin/ HTTP/1.1" 200 5153
+INFO 2023-05-18 16:14:53,807 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 139641767753472 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2023-05-18 16:14:53,809 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 139641758312192 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2023-05-18 16:14:53,810 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 139641749919488 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2023-05-18 16:14:53,816 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 139641758312192 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2023-05-18 16:14:53,816 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 139641749919488 "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2023-05-18 16:14:53,817 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 139641767753472 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2023-05-18 16:14:53,822 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 139641767753472 "GET /static/admin/css/fonts.css HTTP/1.1" 304 0
+INFO 2023-05-18 16:14:53,871 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 139641749919488 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2023-05-18 16:14:53,872 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 139641767753472 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2023-05-18 16:14:53,872 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 139641758312192 "GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 304 0
+INFO 2023-05-18 16:14:53,882 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 139641758312192 "GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 304 0
+INFO 2023-05-18 16:14:53,883 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 139641767753472 "GET /static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 304 0
+INFO 2023-05-18 16:29:34,152 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 8 140010295723840 Watching for file changes with StatReloader
+INFO 2023-05-18 16:31:08,361 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 140010137306880 "GET /admin/ HTTP/1.1" 200 5153
+WARNING 2023-05-18 16:31:12,237 /usr/local/lib/python3.8/site-packages/django/utils/log.py 8 140010137306880 Unauthorized: /
+WARNING 2023-05-18 16:31:12,239 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 140010137306880 "GET / HTTP/1.1" 401 58
+WARNING 2023-05-18 16:31:12,907 /usr/local/lib/python3.8/site-packages/django/utils/log.py 8 140010137306880 Unauthorized: /
+WARNING 2023-05-18 16:31:12,925 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 140010137306880 "GET / HTTP/1.1" 401 58
+INFO 2023-05-18 16:31:17,372 /usr/local/lib/python3.8/site-packages/django/core/servers/basehttp.py 8 140010137306880 "GET /admin/ HTTP/1.1" 200 5153

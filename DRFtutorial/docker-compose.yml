@@ -6,6 +6,8 @@ services:
     container_name: db
     hostname: database
     restart: always
+    #entrypoint: tail -f
+    #command: /dev/null
     ports:
       - "27017:27017"
     volumes:
