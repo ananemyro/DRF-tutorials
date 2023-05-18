@@ -7,6 +7,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 
+
 router = DefaultRouter()
 router.register('profile', views.UserProfileViewSet)
 

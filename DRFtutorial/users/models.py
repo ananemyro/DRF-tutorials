@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 
-# Create your models here.
 class UserProfileManager(BaseUserManager):
     def create_user(self, email, name, password=None, **extra_fields):
         # Creates a new user profile.
@@ -28,8 +27,7 @@ class UserProfileManager(BaseUserManager):
 
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
-    # Represents a "user profile" inside out system. Stores all user account
-    # related data, such as 'email address' and 'name'.
+    # Represents a "user profile" inside out system. Stores all user account related data.
 
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)

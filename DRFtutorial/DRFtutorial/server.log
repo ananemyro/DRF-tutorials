@@ -95,3 +95,21 @@ INFO 2023-05-17 19:43:43,079 /usr/local/lib/python3.8/site-packages/django/utils
 INFO 2023-05-17 19:44:04,523 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 190 140098459461440 Watching for file changes with StatReloader
 INFO 2023-05-17 19:45:39,267 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 190 140098459461440 /app/DRFtutorial/settings.py changed, reloading.
 INFO 2023-05-17 19:46:07,937 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 199 140085473519424 Watching for file changes with StatReloader
+INFO 2023-05-18 13:11:28,641 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 199 140085473519424 /app/DRFtutorial/settings.py changed, reloading.
+INFO 2023-05-18 13:11:30,358 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 205 139993609832256 Watching for file changes with StatReloader
+INFO 2023-05-18 13:17:37,835 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 205 139993609832256 /app/DRFtutorial/urls.py changed, reloading.
+INFO 2023-05-18 13:17:38,892 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 211 140562647734080 Watching for file changes with StatReloader
+INFO 2023-05-18 13:21:31,619 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 211 140562647734080 /app/tutorials/urls.py changed, reloading.
+INFO 2023-05-18 13:21:32,630 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 217 140446294751040 Watching for file changes with StatReloader
+INFO 2023-05-18 13:23:36,257 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 217 140446294751040 /app/tutorials/views.py changed, reloading.
+INFO 2023-05-18 13:23:37,343 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 223 140272765654848 Watching for file changes with StatReloader
+INFO 2023-05-18 13:45:42,012 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 223 140272765654848 /app/tutorials/views.py changed, reloading.
+INFO 2023-05-18 13:45:43,096 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 229 140704916559680 Watching for file changes with StatReloader
+INFO 2023-05-18 13:50:18,816 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 229 140704916559680 /app/tutorials/urls.py changed, reloading.
+INFO 2023-05-18 13:50:19,987 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 235 139894395983680 Watching for file changes with StatReloader
+INFO 2023-05-18 13:53:18,040 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 235 139894395983680 /app/users/admin.py changed, reloading.
+INFO 2023-05-18 13:53:19,186 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 241 140279338297152 Watching for file changes with StatReloader
+INFO 2023-05-18 13:55:09,423 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 241 140279338297152 /app/users/models.py changed, reloading.
+INFO 2023-05-18 13:55:10,884 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 247 140632855189312 Watching for file changes with StatReloader
+INFO 2023-05-18 14:01:14,002 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 247 140632855189312 /app/users/urls.py changed, reloading.
+INFO 2023-05-18 14:01:15,210 /usr/local/lib/python3.8/site-packages/django/utils/autoreload.py 253 139829310256960 Watching for file changes with StatReloader
