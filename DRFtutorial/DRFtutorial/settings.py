@@ -16,6 +16,7 @@ from pathlib import Path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 LOGGING = {
@@ -34,7 +35,7 @@ LOGGING = {
     "handlers": {
         "file": {
             "level": "INFO",
-            "class": "logging.FileHandler",
+            "class": "logging.handlers.RotatingFileHandler",
             "filename": "DRFtutorial/server.log",
             "formatter": "verbose",
         },
@@ -58,19 +59,30 @@ LOGGING = {
     },
 }
 
+# Quick-start development settings (unsuitable for production) -
+# see https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+# SECRET_KEY provides cryptographic signing used for security-related purposes.
+# A few use cases: session security (django uses secret key to sign session cookies),
+# CSRF protection (django uses secret key to include unique tokens in rendered forms),
+# password hashing, cryptographic signatures, etc.
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = "django-insecure-r=)^-5b$b8_!&y5p0$x-61a7x2eq2l827l8*n5h(yq8#y))8a!"
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
+
+# Host refers to the computer/server where the application is running and can be accessed
+# by users. ALLOWED_HOSTS specifies which host/domain names are allowed to access the app.
+# Empty list by default (Django ONLY allows requests with the same host/domain as the one
+# in the request's URL.
 
 ALLOWED_HOSTS = ['*']
 
-# Application definition
+# Application definition:
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -90,6 +102,12 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+
+# Middleware is a component of the web request/response pipeline. It sits between the web
+# server and the view function to process requests before & after they reach the view. It
+# provides a way to modify or handle requests & responses globally across Django application.
+# The order of middleware classes determines the order in which they are processed. Middleware
+# allows global coverage, code reusability, centralized configuration, separation of concerns, etc.
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -127,7 +145,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "DRFtutorial.wsgi.application"
 
-# Database
+# Database:
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
@@ -141,8 +159,11 @@ DATABASES = {
         }
 }
 
-# Password validation
+# Password validation:
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+
+# TO DO: how to create a password validator?
+# (create validators.py with custom classes & raise ValidationError if input fails)
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -159,7 +180,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
+# Internationalization:
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
@@ -170,7 +191,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images):
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
@@ -181,7 +202,7 @@ AUTHENTICATION_BACKENDS = [
 
 AUTH_USER_MODEL = "users.UserProfile"
 
-# Default primary key field type
+# Default primary key field type:
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
