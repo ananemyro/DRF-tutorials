@@ -150,13 +150,13 @@ WSGI_APPLICATION = "DRFtutorial.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "djongo",
-        "NAME": "Tutorial",
-        "PORT": 27017,
-        'CLIENT': {
-                'host': f'{os.environ.get("DB_HOST")}'
-            }
-        }
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "PORT": 5432,
+        "HOST": "db",
+    }
 }
 
 # Password validation:
@@ -197,6 +197,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 AUTHENTICATION_BACKENDS = [
+    'rest_framework_simplejwt.authentication.JWTAuthentication',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -212,6 +213,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 5,
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
         'rest_framework.permissions.AllowAny',
 
     ),
@@ -225,6 +227,7 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FormParser',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
@@ -232,7 +235,7 @@ REST_FRAMEWORK = {
     }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,

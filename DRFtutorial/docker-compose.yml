@@ -2,16 +2,18 @@ version: '3'
 
 services:
   db:
-    image: mongo
+    image: postgres
     container_name: db
-    hostname: database
+    hostname: postgres
     restart: always
-    #entrypoint: tail -f
-    #command: /dev/null
     ports:
-      - "27017:27017"
+      - "5432:5432"
     volumes:
-      - ./data/db:/data/db
+      - ./postgres_data/db:/postgres_data/db
+    environment:
+      POSTGRES_DB: tutorials_database
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
 
   web:
     build:
@@ -27,8 +29,10 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DB_HOST : "mongodb://database/Tutorial"
-      DJANGO_SETTINGS_MODULE: "DRFtutorial.settings"
+      - DB_NAME=tutorials_database
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - DB_HOST=postgres
     links:
       - 'db'
 

@@ -34,12 +34,14 @@ urlpatterns = [
 ]
 """
 
-# class-based views + generics + mixins (CURRENTLY IN USE)
+# class-based views + generics + mixins (IN USE)
 
 urlpatterns = [
-    re_path(r'^api/tutorials$', views.TutorialListViewGenericsMixins.as_view(), name='tutorial_list'),
-    re_path(r'^api/tutorials/(?P<id>[0-9]+)$', views.TutorialDetailViewGenericsMixins.as_view(),
+    re_path(r'^tutorials$', views.TutorialListViewGenericsMixins.as_view(), name='tutorial_list'),
+    re_path(r'^tutorials/(?P<id>[0-9]+)$', views.TutorialDetailViewGenericsMixins.as_view(),
             name='tutorial_detail'),
-    re_path(r'^api/tutorials/published$', views.TutorialListPublishedViewGenericsMixins.as_view(),
+    re_path(r'^tutorials/published$', views.TutorialListPublishedViewGenericsMixins.as_view(),
             name='tutorial_list_published'),
+    re_path(r'^teachers$', views.TeachersListViewGenericsMixins.as_view(), name='teachers_list'),
+    re_path(r'^skills$', views.SkillsListViewGenericsMixins.as_view(), name='skills_list'),
 ]

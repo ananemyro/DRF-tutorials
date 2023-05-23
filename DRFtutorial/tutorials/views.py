@@ -1,14 +1,16 @@
-from .models import Tutorial
+from .models import Tutorial, Teacher, Skill
 from django.http.response import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
-from .serializers import TutorialSerializer
+from .serializers import TutorialSerializer, TeacherSerializer, TeacherPublicSerializer, SkillSerializer
+from rest_framework import generics, mixins
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 import logging
 logger = logging.getLogger(__name__)
 
-
+'''
 # 1 : Function-based view
 @api_view(['GET', 'POST', 'DELETE'])
 def tutorial_list(request):
@@ -44,11 +46,9 @@ class TutorialListView(View):
         tutorials = Tutorial.objects.all()
         tutorials_serializer = TutorialSerializer(tutorials, many=True)
         return JsonResponse(tutorials_serializer.data, safe=False)
-
+'''
 
 # 1.2 : Class-based views using GENERICS, MIXINS from rest_framework (IN USE)
-from rest_framework import generics, mixins
-from rest_framework.permissions import IsAuthenticated
 
 
 class TutorialListViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
@@ -68,6 +68,51 @@ class TutorialListViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMi
         return self.delete(request)
 
 
+class TeachersListViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = Teacher.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.user.is_authenticated:
+            return TeacherSerializer
+        else:
+            return TeacherPublicSerializer
+
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [IsAuthenticated()]
+        return super().get_permissions()
+
+    def get(self, request):
+        logger.info("Teacher list was received.")
+        return self.list(request)
+
+    def post(self, request):
+        logger.info("Teacher was added.")
+        return self.create(request)
+
+    def delete(self, request):
+        logger.info("Teacher was removed.")
+        return self.delete(request)
+
+
+class SkillsListViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
+    permission_classes = IsAuthenticatedOrReadOnly
+
+    def get(self, request):
+        logger.info("Skill list was received.")
+        return self.list(request)
+
+    def post(self, request):
+        logger.info("Skill was added.")
+        return self.create(request)
+
+    def delete(self, request):
+        logger.info("Skill was deleted.")
+        return self.delete(request)
+
+'''
 # 1.3 : Viewsets
 from rest_framework import viewsets
 
@@ -114,7 +159,7 @@ def tutorial_detail(request, pk):
     elif request.method == 'DELETE':
         tutorial.delete()
         return JsonResponse({'message': 'Tutorial was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
-
+'''
 
 # 2.1 : Generics + mixins (IN USE)
 class TutorialDetailViewGenericsMixins(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
@@ -139,7 +184,7 @@ class TutorialDetailViewGenericsMixins(generics.GenericAPIView, mixins.RetrieveM
             logger.info("Requested tutorial item was deleted.")
             return self.destroy(request)
 
-
+'''
 # 2.2 : Class-based views using GENERICS from rest_framework
 class TutorialDetailViewGenerics(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tutorial.objects.all()
@@ -187,7 +232,7 @@ def tutorial_list_published(request):
     if request.method == 'GET':
         tutorials_serializer = TutorialSerializer(tutorials, many=True)
         return JsonResponse(tutorials_serializer.data, safe=False)
-
+'''
 
 # 3.1 : Generics + mixins (IN USE)
 class TutorialListPublishedViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMixin):
@@ -198,8 +243,9 @@ class TutorialListPublishedViewGenericsMixins(generics.GenericAPIView, mixins.Li
         logger.info("Published tutorial list was received.")
         return self.list(request)
 
-
+'''
 # 3.2 : Class-based views using GENERICS from rest_framework
 class TutorialListPublishedViewGenerics(generics.ListCreateAPIView):
     queryset = Tutorial.objects.filter(published=True)
     serializer_class = TutorialSerializer
+'''
