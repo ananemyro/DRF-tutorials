@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from .serializers import TutorialSerializer, TeacherSerializer, TeacherPublicSerializer, SkillSerializer
-from rest_framework import generics, mixins
+from rest_framework import generics, mixins, viewsets
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 import logging
@@ -51,25 +51,29 @@ class TutorialListView(View):
 # 1.2 : Class-based views using GENERICS, MIXINS from rest_framework (IN USE)
 
 
-class TutorialListViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+class TutorialListViewGenericsMixins(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
     queryset = Tutorial.objects.all()
     serializer_class = TutorialSerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         logger.info("Tutorial list was received.")
         return self.list(request)
 
     def post(self, request):
+        if 'teacher' not in request.data:
+            request.data.pop('teacher', None)
         logger.info("Tutorial was posted.")
         return self.create(request)
 
     def delete(self, request):
         logger.info("Tutorial was deleted.")
-        return self.delete(request)
+        return self.destroy(request)
 
 
-class TeachersListViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+class TeacherListViewGenericsMixins(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
     queryset = Teacher.objects.all()
+    permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
         if self.request.user.is_authenticated:
@@ -79,7 +83,8 @@ class TeachersListViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMi
 
     def get_permissions(self):
         if self.request.method == 'GET':
-            return [IsAuthenticated()]
+            if not self.request.user.is_authenticated:
+                return []
         return super().get_permissions()
 
     def get(self, request):
@@ -87,18 +92,20 @@ class TeachersListViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMi
         return self.list(request)
 
     def post(self, request):
+        if 'skills' not in request.data:
+            request.data.pop('skills', None)
         logger.info("Teacher was added.")
         return self.create(request)
 
     def delete(self, request):
         logger.info("Teacher was removed.")
-        return self.delete(request)
+        return self.destroy(request)
 
 
-class SkillsListViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+class SkillListViewGenericsMixins(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
-    permission_classes = IsAuthenticatedOrReadOnly
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request):
         logger.info("Skill list was received.")
@@ -110,7 +117,7 @@ class SkillsListViewGenericsMixins(generics.GenericAPIView, mixins.ListModelMixi
 
     def delete(self, request):
         logger.info("Skill was deleted.")
-        return self.delete(request)
+        return self.destroy(request)
 
 '''
 # 1.3 : Viewsets
@@ -179,9 +186,67 @@ class TutorialDetailViewGenericsMixins(generics.GenericAPIView, mixins.RetrieveM
         logger.info("Requested tutorial item was replaced.")
         return self.update(request)
 
+    def patch(self, request, *args, **kwargs):
+        logger.info("Requested tutorial item was modified.")
+        return self.partial_update(request)
+
     def delete(self, request, id=None):
         if id:
             logger.info("Requested tutorial item was deleted.")
+            return self.destroy(request)
+
+
+class TeacherDetailViewGenericsMixins(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
+                                       mixins.DestroyModelMixin):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer
+    # default to pk
+    # lookup_field for other things
+    lookup_field = "id"
+
+    def get(self, request, id=None):
+        if id:
+            logger.info("Requested teacher entry was received.")
+            return self.retrieve(request)
+
+    def put(self, request, *args, **kwargs):
+        logger.info("Requested teacher entry was replaced.")
+        return self.update(request)
+
+    def patch(self, request, *args, **kwargs):
+        logger.info("Requested teacher entry was modified.")
+        return self.partial_update(request)
+
+    def delete(self, request, id=None):
+        if id:
+            logger.info("Requested teacher entry was deleted.")
+            return self.destroy(request)
+
+
+class SkillDetailViewGenericsMixins(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
+                                       mixins.DestroyModelMixin):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
+    # default to pk
+    # lookup_field for other things
+    lookup_field = "id"
+
+    def get(self, request, id=None):
+        if id:
+            logger.info("Requested skill was received.")
+            return self.retrieve(request)
+
+    def put(self, request, *args, **kwargs):
+        logger.info("Requested skill was replaced.")
+        return self.update(request)
+
+    def patch(self, request, *args, **kwargs):
+        logger.info("Requested skill was modified.")
+        return self.partial_update(request)
+
+    def delete(self, request, id=None):
+        if id:
+            logger.info("Requested skill was deleted.")
             return self.destroy(request)
 
 '''

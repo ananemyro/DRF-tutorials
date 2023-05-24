@@ -13,7 +13,7 @@ router.register('profile', views.UserProfileViewSet)
 
 urlpatterns = [
     re_path(r'', include(router.urls)),
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('refresh-token/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('verify-token/', TokenVerifyView.as_view(), name='token_verify'),
+    path('login', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('refresh-token', TokenRefreshView.as_view(), name='token_refresh'),
+    path('verify-token', TokenVerifyView.as_view(), name='token_verify'),
 ]
