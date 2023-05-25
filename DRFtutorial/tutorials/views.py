@@ -52,7 +52,7 @@ class TutorialListView(View):
 
 
 class TutorialListViewGenericsMixins(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
-    queryset = Tutorial.objects.all()
+    queryset = Tutorial.objects.all().order_by("id")
     serializer_class = TutorialSerializer
     permission_classes = [IsAuthenticated]
 
@@ -67,12 +67,12 @@ class TutorialListViewGenericsMixins(mixins.ListModelMixin, mixins.CreateModelMi
         return self.create(request)
 
     def delete(self, request):
-        logger.info("Tutorial was deleted.")
+        logger.info("Tutorial list was deleted.")
         return self.destroy(request)
 
 
 class TeacherListViewGenericsMixins(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
-    queryset = Teacher.objects.all()
+    queryset = Teacher.objects.all().order_by("id")
     permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
@@ -98,12 +98,12 @@ class TeacherListViewGenericsMixins(mixins.ListModelMixin, mixins.CreateModelMix
         return self.create(request)
 
     def delete(self, request):
-        logger.info("Teacher was removed.")
+        logger.info("Teacher list was deleted.")
         return self.destroy(request)
 
 
 class SkillListViewGenericsMixins(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
-    queryset = Skill.objects.all()
+    queryset = Skill.objects.all().order_by("id")
     serializer_class = SkillSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
@@ -116,7 +116,7 @@ class SkillListViewGenericsMixins(mixins.ListModelMixin, mixins.CreateModelMixin
         return self.create(request)
 
     def delete(self, request):
-        logger.info("Skill was deleted.")
+        logger.info("Skill list was deleted.")
         return self.destroy(request)
 
 '''
