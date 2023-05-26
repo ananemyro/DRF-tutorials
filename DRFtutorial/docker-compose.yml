@@ -8,12 +8,13 @@ services:
     restart: always
     ports:
       - "5432:5432"
-    volumes:
-      - ./postgres_data/db:/postgres_data/db
     environment:
       POSTGRES_DB: tutorials_database
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./db:/var/lib/postgresql/data
 
   web:
     build:
@@ -34,7 +35,9 @@ services:
       - POSTGRES_PASSWORD=admin
       - DB_HOST=postgres
     links:
-      - 'db'
+      - db
+    depends_on:
+      - db
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0

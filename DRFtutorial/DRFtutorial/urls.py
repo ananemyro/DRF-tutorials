@@ -1,5 +1,5 @@
 """
-URL configuration for DRFtutorial project.
+(URL configuration for DRFtutorial project)
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -21,6 +21,8 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+
+# Generate API documentation
 
 schema_view = get_schema_view(
    openapi.Info(

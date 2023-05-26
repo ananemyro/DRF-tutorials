@@ -1,9 +1,8 @@
 """
-(Web Server Gateway Interface)
+Web Server Gateway Interface:
+simple calling convention for web servers to forward requests to web applications or frameworks written in the Python.
 
-WSGI config for DRFtutorial project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
+WSGI config for DRFtutorial project: exposes the WSGI callable as a module-level variable named ``application``.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/

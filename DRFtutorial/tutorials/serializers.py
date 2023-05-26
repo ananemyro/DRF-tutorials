@@ -16,7 +16,7 @@ class TeacherSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'skills')
 
     def create(self, validated_data):
-        skills_data = validated_data.pop('skills', [])  # Remove skills from validated_data
+        skills_data = validated_data.pop('skills', [])
         teacher = Teacher.objects.create(**validated_data)
         for skill in skills_data:
             teacher.skills.add(skill)

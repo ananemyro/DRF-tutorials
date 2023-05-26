@@ -1,4 +1,4 @@
-DRFtutorial/postgres_data
+db
 DRFtutorial/python
 *.pyc
 *.log

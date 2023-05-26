@@ -13,6 +13,7 @@ both locally and remotely, shipped to Elasticsearch by Filebeat and visualized t
 - [API](#api)
   * [Authentication](#authentication)
   * [Swagger](#swagger)
+  * [Making Requests](#making-requests)
 - [Testing](#testing)
 - [Logs](#logs)
 
@@ -52,6 +53,15 @@ The requirements list can be found in DRFtutorials/requirements.txt.
 To authenticate and make protected requests, a JWT token must be generated.
 #### Swagger
 To access Swagger documentation: http://127.0.0.1:8000/swagger/.
+#### Making Requests
+Depending on the type of request and authentication, different behavior is expected. Below are listed some examples.
+- Skill
+  * permissions: IsAuthenticatedOrReadOnly
+- Teacher
+  * permissions: IsAuthenticated
+  * if not authenticated, list of _names only_ can be viewed
+- Tutorial
+  * permissions: IsAuthenticated
 
 ### Testing
 To run all unit tests, run the following command in the terminal of the web container:
