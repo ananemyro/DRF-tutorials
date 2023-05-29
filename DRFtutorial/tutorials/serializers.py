@@ -9,7 +9,7 @@ class SkillSerializer(serializers.ModelSerializer):
 
 
 class TeacherSerializer(serializers.ModelSerializer):
-    skills = serializers.PrimaryKeyRelatedField(queryset=Skill.objects.all(), many=True)
+    skills = serializers.PrimaryKeyRelatedField(queryset=Skill.objects.all(), many=True, required=False)
 
     class Meta:
         model = Teacher
@@ -30,7 +30,7 @@ class TeacherPublicSerializer(serializers.ModelSerializer):
 
 
 class TutorialSerializer(serializers.ModelSerializer):
-    teacher = serializers.PrimaryKeyRelatedField(queryset=Teacher.objects.all())
+    teacher = serializers.PrimaryKeyRelatedField(queryset=Teacher.objects.all(), required=False)
     class Meta:
         model = Tutorial
         fields = ('id', 'title', 'description', 'published', 'teacher')

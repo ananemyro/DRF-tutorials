@@ -2,19 +2,18 @@ from django.urls import re_path, path, include
 from .views import *
 from rest_framework import routers
 
-router = routers.DefaultRouter()
-router.register(r'skills', SkillListView)
-router.register(r'teachers', TeacherListView)
-router.register(r'tutorials', TutorialListView)
 
 # IN USE
 
 urlpatterns = [
-    path('', include(router.urls)),
-    re_path(r'^tutorials/(?P<id>[0-9]+)$', TutorialDetailView.as_view(), name='tutorial_detail'),
-    re_path(r'^tutorials/published$', TutorialListPublishedView.as_view(), name='tutorial_list_published'),
+    re_path(r'^tutorials$', TutorialListView.as_view({'get': 'list', 'post': 'create', 'delete': 'delete_all'})),
+    re_path(r'^teachers$', TeacherListView.as_view({'get': 'list', 'post': 'create', 'delete': 'delete_all'})),
+    re_path(r'^skills$', SkillListView.as_view({'get': 'list', 'post': 'create', 'delete': 'delete_all'})),
+    re_path(r'^tutorials/(?P<id>[0-9]+)$', TutorialDetailView.as_view()),
     re_path(r'^teachers/(?P<id>[0-9]+)$', TeacherDetailView.as_view()),
     re_path(r'^skills/(?P<id>[0-9]+)$', SkillDetailView.as_view()),
+    re_path(r'^tutorials/published$', TutorialListPublishedView.as_view()),
+
 ]
 
 

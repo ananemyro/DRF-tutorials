@@ -11,7 +11,7 @@ from .serializers import TutorialSerializer, SkillSerializer, TeacherSerializer,
 class SkillListViewTestCase(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
-        self.view = SkillListView.as_view({'get': 'list', 'post': 'create', 'delete': 'destroy'})
+        self.view = SkillListView.as_view({'get': 'list', 'post': 'create', 'delete': 'delete_all'})
         self.user = get_user_model().objects.create(name='test', email='test@bell.ca', password="test")
         self.skill = Skill.objects.create(name='QA', level='Beginner')
 
@@ -44,27 +44,17 @@ class SkillListViewTestCase(TestCase):
 class TutorialListViewTestCase(APITestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
-        self.view = TutorialListView.as_view({'get': 'list', 'post': 'create', 'delete': 'destroy'})
-        self.user = get_user_model().objects.create_user(
-            name='test',
-            email='test@bell.ca',
-            password='test'
-        )
-        self.admin_user = get_user_model().objects.create_superuser(
-            name='admin',
-            email='admin@bell.ca',
-            password='admin'
-        )
+        self.view = TutorialListView.as_view({'get': 'list', 'post': 'create', 'delete': 'delete_all'})
+        self.user = get_user_model().objects.create_user(name='test', email='test@bell.ca', password='test')
         self.tutorial = Tutorial.objects.create(
-            title='Tutorial 1',
-            description='Description 1',
+            title='Test tutorial',
+            description='Test Description',
             published=False,
             teacher=None
         )
 
     def tearDown(self):
         self.user.delete()
-        self.admin_user.delete()
         self.tutorial.delete()
 
     def test_list_authenticated(self):
@@ -94,7 +84,7 @@ class TutorialListViewTestCase(APITestCase):
     def test_destroy_authenticated(self):
         url = '/tutorials/'
         request = self.factory.delete(url)
-        force_authenticate(request, user=self.admin_user)
+        force_authenticate(request, user=self.user)
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Tutorial.objects.count(), 0)
@@ -110,11 +100,7 @@ class TeacherListViewTestCase(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.view = TeacherListView.as_view({'get': 'list', 'post': 'create', 'delete': 'destroy'})
-        self.user = get_user_model().objects.create_user(
-            name='test',
-            email='test@bell.ca',
-            password="test"
-        )
+        self.user = get_user_model().objects.create_user(name='test', email='test@bell.ca', password="test")
         self.admin_user = get_user_model().objects.create_superuser(
             name='admin',
             email='admin@bell.ca',

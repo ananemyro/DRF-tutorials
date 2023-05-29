@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from .models import UserProfile
 from .serializers import UserProfileSerializer
 from .permissions import UpdateOwnProfile
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 logger = logging.getLogger(__name__)
@@ -15,8 +16,12 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     permission_classes = [UpdateOwnProfile]
 
     def get_permissions(self):
-        if self.request.method == 'GET' or self.request.method == 'POST':
+        if self.request.method == 'GET':
+            return [IsAuthenticated()]
+        elif self.request.method == 'POST':
             return []
+        elif self.request.method == 'DELETE':
+            return [IsAdminUser()]
         return super().get_permissions()
 
     def list(self, request, *args, **kwargs):

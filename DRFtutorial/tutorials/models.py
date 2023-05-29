@@ -8,16 +8,11 @@ class Skill(models.Model):
     # def __str__(self):
     #     return f"{self.name} ({self.level})"
 
-# /skills (authenticated) - add new skills (POST)
-# /skills (no authentication) - returns list of skills (GET)
 
 class Teacher(models.Model):
     first_name = models.CharField(max_length=70, blank=False, default='')
     last_name = models.CharField(max_length=70, blank=False, default='')
     skills = models.ManyToManyField(Skill)
-
-# /teachers (authenticated) - returns the list of teachers, all attributes (GET)
-# /teachers (no authentication) - returns list of teachers, name ONLY (GET)
 
 
 class Tutorial(models.Model):
@@ -25,5 +20,3 @@ class Tutorial(models.Model):
     description = models.CharField(max_length=200, blank=False, default='')
     published = models.BooleanField(default=False)
     teacher = models.ForeignKey(Teacher, null=True, on_delete=models.SET_NULL)
-
-# /tutorials - return the list of tutorials & first, last name of teacher (GET)
