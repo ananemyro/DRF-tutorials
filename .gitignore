@@ -3,3 +3,4 @@ DRFtutorial/python
 *.pyc
 *.log
 .idea
+.DS_Store

@@ -5,7 +5,7 @@ from .models import Tutorial, Teacher, Skill
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skill
-        fields = ('id', 'name', 'level')
+        fields = ("id", "name", "level")
 
 
 class TeacherSerializer(serializers.ModelSerializer):
@@ -13,10 +13,10 @@ class TeacherSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Teacher
-        fields = ('id', 'first_name', 'last_name', 'skills')
+        fields = ("id", "first_name", "last_name", "skills")
 
     def create(self, validated_data):
-        skills_data = validated_data.pop('skills', [])
+        skills_data = validated_data.pop("skills", [])
         teacher = Teacher.objects.create(**validated_data)
         for skill in skills_data:
             teacher.skills.add(skill)
@@ -26,17 +26,20 @@ class TeacherSerializer(serializers.ModelSerializer):
 class TeacherPublicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ('id', 'first_name', 'last_name')
+        fields = ("id", "first_name", "last_name")
 
 
 class TutorialSerializer(serializers.ModelSerializer):
     teacher = serializers.PrimaryKeyRelatedField(queryset=Teacher.objects.all(), required=False)
+
     class Meta:
         model = Tutorial
-        fields = ('id', 'title', 'description', 'published', 'teacher')
+        fields = ("id", "title", "description", "published", "teacher")
 
     def create(self, validated_data):
-        teacher_id = validated_data.pop('teacher').id
-        teacher = Teacher.objects.get(id=teacher_id)
+        teacher = None
+        if "teacher" in validated_data:
+            teacher_id = validated_data.pop("teacher").id
+            teacher = Teacher.objects.get(id=teacher_id)
         tutorial = Tutorial.objects.create(teacher=teacher, **validated_data)
         return tutorial

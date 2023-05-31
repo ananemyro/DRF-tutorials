@@ -7,6 +7,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView, View
 from rest_framework.response import Response
 from rest_framework import status, generics, mixins, viewsets
+from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser
 from .serializers import TutorialSerializer, TeacherSerializer, TeacherPublicSerializer, SkillSerializer
 
@@ -14,13 +15,15 @@ from .serializers import TutorialSerializer, TeacherSerializer, TeacherPublicSer
 logger = logging.getLogger(__name__)
 
 
-class TutorialListView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
+class TutorialListView(
+    mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet
+):
     queryset = Tutorial.objects.all().order_by("id")
     serializer_class = TutorialSerializer
     permission_classes = [IsAdminUser]
 
     def get_permissions(self):
-        if self.request.method == 'GET' or self.request.method == 'POST':
+        if self.request.method == "GET" or self.request.method == "POST":
             return [IsAuthenticated()]
         return super().get_permissions()
 
@@ -31,17 +34,12 @@ class TutorialListView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.De
         return response
 
     def create(self, request, *args, **kwargs):
-        if 'teacher' not in request.data:
-            request.data.pop('teacher', None)
+        if "teacher" not in request.data:
+            request.data.pop("teacher", None)
         logger.info("Adding new tutorial to the list...")
         response = super().create(request)
         logger.info("Added successfully.")
         return response
-
-    def get_extra_actions(self):
-        actions = super().get_extra_actions()
-        actions['delete_all'] = self.delete_all
-        return actions
 
     def delete_all(self, request, *args, **kwargs):
         logger.info("Deleting tutorial list...")
@@ -50,7 +48,9 @@ class TutorialListView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.De
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class TeacherListView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
+class TeacherListView(
+    mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet
+):
     queryset = Teacher.objects.all().order_by("id")
     permission_classes = [IsAuthenticated]
 
@@ -61,10 +61,10 @@ class TeacherListView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Des
             return TeacherPublicSerializer
 
     def get_permissions(self):
-        if self.request.method == 'GET':
+        if self.request.method == "GET":
             if not self.request.user.is_authenticated:
                 return []
-        elif self.request.method == 'DELETE':
+        elif self.request.method == "DELETE":
             return [IsAdminUser()]
         return super().get_permissions()
 
@@ -75,17 +75,15 @@ class TeacherListView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Des
         return response
 
     def create(self, request, *args, **kwargs):
-        if 'skills' not in request.data:
-            request.data.pop('skills', None)
+        if "skills" not in request.data:
+            request.data.pop("skills", None)
         logger.info("Adding new teacher to the list...")
         response = super().create(request)
         logger.info("Added successfully.")
         return response
 
-    def get_extra_actions(self):
-        actions = super().get_extra_actions()
-        actions['delete_all'] = self.delete_all
-        return actions
+    def get_object(self):
+        return self.queryset.first()
 
     def delete_all(self, request, *args, **kwargs):
         logger.info("Deleting teacher list...")
@@ -100,7 +98,7 @@ class SkillListView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Destr
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_permissions(self):
-        if self.request.method == 'DELETE':
+        if self.request.method == "DELETE":
             return [IsAdminUser()]
         return super().get_permissions()
 
@@ -116,20 +114,16 @@ class SkillListView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Destr
         logger.info("Added successfully.")
         return response
 
-    def get_extra_actions(self):
-        actions = super().get_extra_actions()
-        actions['delete_all'] = self.delete_all
-        return actions
-
-    def delete_all(self, request):
+    def delete_all(self, request, *args, **kwargs):
         logger.info("Deleting all skill items...")
         self.queryset.delete()
         logger.info("All skill items deleted successfully.")
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class TutorialDetailView(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
-                                       mixins.DestroyModelMixin):
+class TutorialDetailView(
+    generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin
+):
     queryset = Tutorial.objects.all().order_by("id")
     serializer_class = TutorialSerializer
     # default to pk
@@ -146,12 +140,14 @@ class TutorialDetailView(generics.GenericAPIView, mixins.RetrieveModelMixin, mix
 
     def put(self, request, *args, **kwargs):
         logger.info("Replacing requested tutorial item...")
-        title = request.data.get('title')
-        description = request.data.get('description')
-        published = request.data.get('published')
-        teacher = request.data.get('teacher')
+        title = request.data.get("title")
+        description = request.data.get("description")
+        published = request.data.get("published")
+        teacher = request.data.get("teacher")
         if not title or not description or not published or not teacher:
-            return Response("Title, description, published, and teacher entries are required.", status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                "Title, description, published, and teacher entries are required.", status=status.HTTP_400_BAD_REQUEST
+            )
         response = self.update(request)
         logger.info("Replaced successfully.")
         return response
@@ -170,8 +166,9 @@ class TutorialDetailView(generics.GenericAPIView, mixins.RetrieveModelMixin, mix
             return response
 
 
-class TeacherDetailView(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
-                                       mixins.DestroyModelMixin):
+class TeacherDetailView(
+    generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin
+):
     queryset = Teacher.objects.all().order_by("id")
     serializer_class = TeacherSerializer
     lookup_field = "id"
@@ -186,11 +183,13 @@ class TeacherDetailView(generics.GenericAPIView, mixins.RetrieveModelMixin, mixi
 
     def put(self, request, *args, **kwargs):
         logger.info("Replacing requested teacher entry...")
-        first_name = request.data.get('first_name')
-        last_name = request.data.get('last_name')
-        skills = request.data.get('skills')
+        first_name = request.data.get("first_name")
+        last_name = request.data.get("last_name")
+        skills = request.data.get("skills")
         if not first_name or not last_name or not skills:
-            return Response("First name, last name, and skill entries are required.", status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                "First name, last name, and skill entries are required.", status=status.HTTP_400_BAD_REQUEST
+            )
         response = self.update(request)
         logger.info("Replaced successfully.")
         return response
@@ -209,8 +208,9 @@ class TeacherDetailView(generics.GenericAPIView, mixins.RetrieveModelMixin, mixi
             return response
 
 
-class SkillDetailView(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
-                                       mixins.DestroyModelMixin):
+class SkillDetailView(
+    generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin
+):
     queryset = Skill.objects.all().order_by("id")
     serializer_class = SkillSerializer
     lookup_field = "id"
@@ -225,8 +225,8 @@ class SkillDetailView(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins
 
     def put(self, request, *args, **kwargs):
         logger.info("Replacing requested skill item...")
-        name = request.data.get('name')
-        level = request.data.get('level')
+        name = request.data.get("name")
+        level = request.data.get("level")
         if not name or not level:
             return Response("Name and level entries are required.", status=status.HTTP_400_BAD_REQUEST)
         response = self.update(request)
@@ -258,7 +258,8 @@ class TutorialListPublishedView(generics.GenericAPIView, mixins.ListModelMixin):
         logger.info("Listed successfully.")
         return response
 
-'''
+
+"""
 
 # 1 FUNCTION-BASED VIEWS: represent a simple and straightforward approach for handling HTTP requests and returning
 #   HTTP responses; implemented as Python functions.
@@ -393,4 +394,4 @@ class TutorialListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins
 
     def destroy(self, request):
         return self.destroy(request)
-'''
+"""
