@@ -11,6 +11,7 @@ This project demonstrates the development of a Django web application using Djan
 - [API](#api)
   * [Authentication](#authentication)
   * [Swagger](#swagger)
+  * [Postman](#postman)
   * [Making Requests](#making-requests)
 - [Testing](#testing)
 - [Logs](#logs)
@@ -52,6 +53,8 @@ The requirements list can be found in 'DRFtutorials/requirements.txt'.
 To authenticate and make protected requests, a JWT token must be generated.
 #### Swagger
 Access the Swagger documentation at: http://127.0.0.1:8000/swagger/.
+#### Postman
+A Postman collection is available to simplify making requests to the API. It includes pre-configured requests for all endpoints and can be used to quickly test and explore the API functionality.
 #### Making Requests
 Different behaviors are expected depending on the request type and authentication status. Examples include:
 - Skill
@@ -60,7 +63,8 @@ Different behaviors are expected depending on the request type and authenticatio
   * permissions: IsAuthenticated
   * if not authenticated, list of _names only_ can be viewed
 - Tutorial
-  * permissions: IsAuthenticated
+  * permissions: IsAuthenticated  
+
 
 ### Testing
 To run all unit tests, run the following command in the terminal of the web container:
